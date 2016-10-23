@@ -4,50 +4,53 @@ The project contains implementation of several data classes, service class and c
 
 Data classes:
   - Product: container of common product attributes.
-  - Stock:  container of what will be sold.  It links a product with other attributes, such as quantity, price, unit
-            and other possible fields.  Having that it is possible to sell same product packed in different batches or
-            having different expiration date, etc. for different price.  This decoupling of specific product from price
-            and quantity add some complexity, but gives some potential for flexibility.
+  - Stock:  container of what will be sold.  It links a product with other attributes, such as quantity,
+            price, unit and other possible fields.  Having that it is possible to sell same product
+            packed in different batches or having different expiration date, etc. for different price.
+            This decoupling of specific product from price and quantity add some complexity, but gives
+            some potential for flexibility.
   - Shop:   currently just a container of stocks.
   - Order:  set of stocks with ordered quantity.
 
 Service class:
-  - OrderProcessor: checks for existence of ordered stocks and their available quantity; synchronously commits the order
-                    with subtracting the quantity of shop's stocks.
+  - OrderProcessor: checks for existence of ordered stocks and their available quantity;
+                    synchronously commits the order with subtracting the quantity of shop's stocks.
 
 Controller class:
   - Binds the 'main' page view with set of shop's stocks.
-  - Gathers the order, validates quantity parameters, accumulates error messages and calls OrderProcessor to check
-    stocks availability.  If everything's alright, binds the 'shopping' view with the order.  Otherwise binds the 'main'
-    view.
+  - Gathers the order, validates quantity parameters, accumulates error messages and calls OrderProcessor
+    to check stocks availability.  If everything's alright, binds the 'shopping' view with the order.
+    Otherwise binds the 'main' view.
 
 JSP views:
-  - Main.jsp - shows list of available stocks as a separate list and form for ordering.  If the order could not be
-    completed the error messages appear next to corresponding stocks.
+  - Main.jsp - shows list of available stocks as a separate list and form for ordering.
+    If the order could not be completed the error messages appear next to corresponding stocks.
   - Shopping.jsp - shows list of ordered stocks and Back button.
 
 Notes:
-  - Views and controller utilize 'messages.properties' resource for all labels, which opens a way for possible
-    internationalization of the site
-  - Shopping form uses input[type='number'] fields with min/max/step/pattern attributes, which delegates initial
-    validation of quantity values to the browser without using any JavaScript code.  Of course, additional validation
-    takes part on back-end side.
+  - Views and controller utilize 'messages.properties' resource for all labels, which opens a way for
+    possible internationalization of the site
+  - Shopping form uses input[type='number'] fields with min/max/step/pattern attributes, which delegates
+    initial validation of quantity values to the browser without using any JavaScript code.
+    Of course, additional validation takes part on back-end side.
 
 
 *** Answers ***
 
 Reason why you used specific frameworks and libraries for the front-end and back-end
-    Well, it worth speaking of back-end only.  The task itself is not so complex and therefore could be solved by using
-    Java servlets without any additional frameworks.  The thing is that I had very small experience working with Spring
-    framework before, and All recent web projects were based on Struts.  So I thought that building this task using
-    Spring MVC framework is a good chance to renew my knowledge.
-    I also utilized JSTL library, which adds significant convenience in constructing of JSP pages.
+    Well, it worth speaking of back-end only.  The task itself is not so complex and therefore could be
+    implemented by using Java servlets without any additional frameworks.  The thing is that I had very
+    small experience working with Spring framework before, and All recent web projects were based on
+    Struts.  So I thought that building this task using Spring MVC framework is a good chance to renew
+    my knowledge.  I also utilized JSTL library, which adds significant convenience in constructing of
+    JSP pages.
 
 How the persistent layer could be implemented?
-    Speaking of data access layer, I would go with Hibernate framework.  Classes in 'data' package are ready to be
-    mapped to physical data objects.  Also cache levels can be setup for rarely changing entities, like Products.
-    Also the site definitely will need to store some user's data between requests, such as login, viewed products
-    or incomplete orders (controversial), and that's what in-memory sessions are just fine.
+    Speaking of data access layer, I would go with Hibernate framework.  Classes in 'data' package are
+    ready to be mapped to physical data objects.  Also cache levels can be setup for rarely changing
+    entities, like Products.  Also the site definitely will need to store some user's data between
+    requests, such as login, viewed products or incomplete orders (controversial), and that's what
+    in-memory sessions are just fine.
 
 How long did it take you to create the code?
     Roughly, one day.
